@@ -56,8 +56,15 @@ class Car extends Obj {
 
 // NUVEM ----------------------------------------
 class CarIn extends Obj {
-    mov() {
-        this.y += 3;
+    mov(fase) {
+        if (fase == 1) {
+            this.y += 4
+        } else if (fase == 2) {
+            this.y += 6
+        } else if (fase == 3) {
+            this.y += 8
+        }
+        
         if (this.y >= 760) {
             this.recomeca();
         }
