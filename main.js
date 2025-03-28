@@ -17,7 +17,7 @@ let t8 = new Text();
 
 let jogar = true;
 let fase = 1; 
-
+let tela_inicial = true; // Flag para verificar se estamos na tela inicial
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'a') {
@@ -38,6 +38,13 @@ document.addEventListener('keyup', (e) => {
 document.addEventListener('keypress', (e) => {
     console.log("tecla =", e.key);
 });
+
+document.addEventListener('keydown', (e) => {
+    if (tela_inicial) {
+        tela_inicial = false; // Ao pressionar uma tecla, desativa a tela inicial
+        jogar = true; // Começa o jogo
+    }
+})
 
 function game_over() {
     if (car.vida <= 0) {
@@ -75,13 +82,17 @@ function pontos() {
 }
 
 function faseChecar() {
+   fase = 1
     if (car.pts >= 35) {
         fase = 2
-    } else if (car.pts >= 70) {
-     fase = 3
+    }
+    if (car.pts >= 70) {
+        fase = 3
+        console.log('fase 3')
     }
 }
 function atualiza() {
+    faseChecar();
     if (jogar) {
         car.mov(fase);
         car2.mov(fase);
@@ -91,7 +102,6 @@ function atualiza() {
         pontos();
         colisao();
         game_over();
-        faseChecar();
     }
 }
 
@@ -112,7 +122,12 @@ function desenha() {
         t5.des_text('Game Over', 150, 340, '#27657a', '46px Times');
         t8.des_text('Pressione F5 para jogar novamente:', 70, 400, '#27657a', '26px Times');
     }
-
+    if (tela_inicial) {
+        des.fillStyle = 'white';
+        des.fillRect(0, 0, 500, 700);
+        t5.des_text('Aviator', 190, 250, '#27657a', '40px Times');
+        t5.des_text('Pressione qualquer tecla para começar', 100, 320, '#27657a', '20px Times');
+    }
 }
 
 function main() {
