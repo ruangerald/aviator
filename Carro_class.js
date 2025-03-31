@@ -1,5 +1,5 @@
 class Obj {
-    constructor(x, y, w, h, a) {
+    constructor(x,  y,w, h, a) {
         this.x = x
         this.y = y
         this.w = w
@@ -58,11 +58,11 @@ class Car extends Obj {
 class CarIn extends Obj {
     mov(fase) {
         if (fase === 1) {
-            this.y += 4
+            this.y += 3
         } else if(fase === 2) {
-            this.y += 6
+            this.y += 5
         } else if (fase === 3) {
-            this.y += 8
+            this.y += 7
         }
         
         if (this.y >= 760) {

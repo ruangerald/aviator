@@ -1,6 +1,6 @@
 let des = document.getElementById('des').getContext('2d');
 
-let car = new Car(200, 600, 100, 100, './img/aviaosemfundo.png');
+let car = new Car(200, 600, 70, 70, './img/aviaosemfundo.png');
 let car2 = new CarIn(200, -200, 60, 40, './img/nuvem.png');
 let car3 = new CarIn(100, -170, 60,40, './img/nuvem.png');
 let car4 = new CarIn(50, -470, 60, 40, './img/nuvem.png');
@@ -14,6 +14,14 @@ let t5 = new Text();
 let t6 = new Text();
 let t7 = new Text();
 let t8 = new Text();
+
+let musica = new Audio('./img/musica.mp3')
+let vida= new Audio('./img/vida.mp3')
+let gameover = new Audio('./img/gameover.mp3')
+musica.loop = true
+musica.volume = 0.5
+
+
 
 let jogar = true;
 let fase = 1; 
@@ -43,12 +51,15 @@ document.addEventListener('keydown', (e) => {
     if (tela_inicial) {
         tela_inicial = false; // Ao pressionar uma tecla, desativa a tela inicial
         jogar = true; // Começa o jogo
+    musica.play()
     }
 })
 
 function game_over() {
     if (car.vida <= 0) {
         jogar = false;
+        musica.pause()
+        gameover.play()
     }
 }
 
@@ -56,37 +67,41 @@ function colisao() {
     if (car.colid(car2)) {
         car.vida -= 1;
         car2.recomeca();
+        vida.play()
     } else if (car.colid(car3)) {
         car.vida -= 1;
         car3.recomeca();
+        vida.play()
     } else if (car.colid(car4)) {
         car.vida -= 1;
         car4.recomeca();
+        vida.play()
     } else if (car.colid(car5)) {
         car.vida -= 1;
         car5.recomeca();
+        vida.play()
     }
 }
 
 function pontos() {
     if (car.point(car2)) {
-        car.pts += 2;
+        car.pts += 1;
     } else if (car.point(car3)) {
-        car.pts += 2;
+        car.pts += 1;
     } else if (car.point(car4)) {
-        car.pts += 2;
+        car.pts += 1;
     } else if (car.point(car5)) {
-        car.pts += 2;
+        car.pts += 1;
     }
 
 }
 
 function faseChecar() {
    fase = 1
-    if (car.pts >= 35) {
+    if (car.pts >= 50) {
         fase = 2
     }
-    if (car.pts >= 70) {
+    if (car.pts >= 80) {
         fase = 3
         console.log('fase 3')
     }
